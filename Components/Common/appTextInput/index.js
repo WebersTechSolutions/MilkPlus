@@ -22,12 +22,6 @@ class AppTextInput extends Component {
 
 	render() {
 		const { inputedText, isVerifiedPassword, name } = this.props;
-		let password = "";
-		inputedText.map((text) => {
-			if(text.password) {
-				password = text.password;
-			}
-		})
 		return (
 			<View style={styles.textView}>
 				<TextInput
@@ -39,10 +33,11 @@ class AppTextInput extends Component {
 					style={styles.textInput}
 					secureTextEntry={this.props.secureTextEntry}
 					value={this.state.inputText}
+					underlineColorAndroid="transparent"
 				/>
 				{<View style={styles.verifieIcon}>
 					{isVerifiedPassword && this.state.inputText !== '' && (
-						password && (this.state.inputText === password) ?
+						inputedText && inputedText.password && (this.state.inputText === inputedText.password) ?
 						<Icon name="check" size={20} color="#4BB543" /> :
 						<Icon name="cross" size={20} color="#CA0B00" />)}
 				</View>}

@@ -9,7 +9,8 @@ import createSagaMiddleware from 'redux-saga';
 import rootReducer from "./reducers";
 import saga from "./sagas";
 import SplashScreen from './Components/Common/splashScreen';
-import logInOrSignUpPage from './Components/Common/logInOrSignUpPage';
+import LogInOrSignUpPage from './Components/Common/logInOrSignUpPage';
+import Dummy from './Components/Common/dummyComponent';
 
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
@@ -28,7 +29,8 @@ class App extends Component{
 				<NavigationContainer>
 					<Stack.Navigator>
 						<Stack.Screen name="SplashScreen" component={SplashScreen} options={{headerShown: false}} />
-						<Stack.Screen name="logInOrSignUpPage" component={logInOrSignUpPage} options={{headerShown: false}} />
+						<Stack.Screen name="logInOrSignUpPage" component={LogInOrSignUpPage} options={{headerShown: false}} />
+						<Stack.Screen name="dummy" component={Dummy} options={{headerShown: false}} />
 					</Stack.Navigator>
 				</NavigationContainer>
 			</Provider>

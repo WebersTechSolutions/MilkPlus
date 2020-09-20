@@ -1,17 +1,36 @@
 import React, { Component } from "react";
-import { TouchableHighlight, Text } from "react-native";
+import { connect } from "react-redux";
+import { TouchableHighlight, ActivityIndicator, Text } from "react-native";
 import { colorTheme, otherColorTheme } from "../../../constants";
 
-export default class AppBoutton extends Component {
+class AppBoutton extends Component {
 
 	render() {
+		const { isLoadding, onPress } = this.props;
 		return (
-			<TouchableHighlight style={styles.logInBoutton} >
-				<Text style={styles.logInBouttonText}>{this.props.text || "Add text"}</Text>
+			<TouchableHighlight style={styles.logInBoutton} onPress={() => {
+					window.location && window.location.reload(true);
+					onPress && onPress();
+				}} >
+				{
+					isLoadding ?
+					<ActivityIndicator color={colorTheme} /> :
+					<Text style={styles.logInBouttonText}>{this.props.text || "Add text"}</Text>
+				}
 			</TouchableHighlight>
 		);
 	}
 }
+
+const mapStateToProps = (state) => ({
+	isLoadding: state.logInOrSignUp.isLoadding,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppBoutton);
+
 
 const styles = {
 	logInBoutton: {

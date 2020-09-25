@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Image, StatusBar, SafeAreaView, ScrollView, TouchableWithoutFeedback, View, Text } from 'react-native';
 import { logo, colorTheme, otherColorTheme } from '../../../constants';
 import { Container, Footer } from 'native-base';
+import { connect } from "react-redux";
 import LogInPage from './LogInPage';
 import SignUpPage from './SignUpPage';
 
-export default class logInOrSignUpPage extends Component {
+class logInOrSignUpPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -29,7 +30,7 @@ export default class logInOrSignUpPage extends Component {
 						<Container style={styles.logInPageContainer}>
 							<Image source={logo} style={styles.logo} />
 							<View style={styles.logInPageView}>
-								{isNewUser ? <SignUpPage /> : <LogInPage />}
+								{isNewUser ? <SignUpPage {...this.props} /> : <LogInPage {...this.props} />}
 							</View>
 						</Container>
 						<Footer style={styles.footerView}>
@@ -38,7 +39,10 @@ export default class logInOrSignUpPage extends Component {
 								"Don't have Account ?":
 								"Already have an Account ?"}{" "}
 							</Text>
-							<TouchableWithoutFeedback onPress={() => this.toggleUser()}>
+							<TouchableWithoutFeedback onPress={() => {
+									this.props.clearTextInputActions();
+									this.toggleUser();
+								}}>
 								<Text style={styles.footerLatText}>
 									{!isNewUser ?
 									"Create One":
@@ -52,6 +56,15 @@ export default class logInOrSignUpPage extends Component {
 		);
 	}
 }
+
+const mapStateToProps = (state) => ({
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	clearTextInputActions: () => dispatch(actions.clearTextInputActions()),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(logInOrSignUpPage);
 
 const styles = {
 	logInPageContainer: {
